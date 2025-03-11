@@ -44,12 +44,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug SERVER_HOST
+        run: echo "${{ secrets.SERVER_HOST }}"
+      - name: Debug SERVER_USER
+        run: echo "${{ secrets.SERVER_USER }}"
       - name: Debug SSH Key
-        run: echo "${{ secrets.SERVER_HOST }}" | base64
-      - name: Debug SSH Key
-        run: echo "${{ secrets.SERVER_USER }}" | base64
-      - name: Debug SSH Key
-        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64
+        run: echo "${{ secrets.SSH_PRIVATE_KEY }}"
       - name: Deploy to server
        # Sử dụng action "appleboy/ssh-action" để triển khai image lên server thông qua SSH
         uses: appleboy/ssh-action@v0.1.3
