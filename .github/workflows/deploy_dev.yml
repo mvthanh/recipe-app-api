@@ -36,7 +36,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/python-backend:${{ github.sha }}
+          tags: ${{ secrets.DOCKERHUB_USER }}/python-backend:${{ github.sha }}
 
  # Job 2: Deploy
   deploy:
@@ -53,11 +53,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             # Pull image mà được push lên DockerHub bên trên
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/python-backend:${{ github.sha }}
+            docker pull ${{ secrets.DOCKERHUB_USER }}/python-backend:${{ github.sha }}
 
             # Dừng và gỡ bỏ container hiện tại (nếu có)
             docker stop python-backend-container || true
             docker rm python-backend-container || true
 
             # Chạy container mới với image đã pull về bên trên
-            docker run --env-file .env -d -p 8000:8000 --name python-backend-container ${{ secrets.DOCKERHUB_USERNAME }}/python-backend:${{ github.sha }}
+            docker run --env-file .env -d -p 8000:8000 --name python-backend-container ${{ secrets.DOCKERHUB_USER }}/python-backend:${{ github.sha }}
