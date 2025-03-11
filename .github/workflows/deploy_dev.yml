@@ -40,7 +40,7 @@ jobs:
 
   # Job 2: Deploy
   deploy:
-    needs: build_and_test
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
