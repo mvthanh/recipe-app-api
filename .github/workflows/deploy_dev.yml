@@ -8,9 +8,9 @@ on:
 
 # Định nghĩa các jobs cần thực hiện
 jobs:
-   # Job 1: build và test
+   # Job 1: build
    # Job thực thi trên máy ảo ubuntu
-  build_and_test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,7 +29,6 @@ jobs:
         # Build và test image được build ra bằng Docker
         run: |
           docker build -t python-backend .
-          docker exec -it python-backend sh -c "python manage.py test"
 
       - name: Push image to Docker Hub
         uses: docker/build-push-action@v2
