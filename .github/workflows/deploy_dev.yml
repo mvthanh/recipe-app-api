@@ -44,12 +44,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debug SERVER_HOST
-        run: echo "${{ secrets.SERVER_HOST }}" | base64
-      - name: Debug SERVER_USER
-        run: echo "${{ secrets.SERVER_USER }}" | base64
-      - name: Debug SSH Key
-        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64
       - name: Deploy to server
        # Sử dụng action "appleboy/ssh-action" để triển khai image lên server thông qua SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -60,6 +54,8 @@ jobs:
           port: 22
           debug: true
           script: |
+            # Login
+            echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USER }}" --password-stdin
             # Pull image mà được push lên DockerHub bên trên
             docker pull ${{ secrets.DOCKERHUB_USER }}/python-backend:${{ github.sha }}
 
